@@ -29,7 +29,7 @@ export const ContactValidation = Yup.object().shape({
   lastname: Yup.string().max(21, 'Sobra ang Apelyido').nullable(),
   email: Yup.string().email('Invalid Email').required('Email is Required'),
   birthDate: Yup.date()
-    .max(new Date(), 'Must be greater than today')
+    .max(new Date(), 'Must be lesser than today')
     .required('Birth Date is Required'),
   phone: Yup.string().required('Phone is Required'),
 });
