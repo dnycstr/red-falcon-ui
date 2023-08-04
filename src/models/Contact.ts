@@ -1,5 +1,19 @@
 import * as Yup from 'yup';
 
+import { TableViewModel } from './common/TableViewModel';
+
+export const ContactValidation = Yup.object().shape({
+  firstname: Yup.string()
+    .max(100, 'Sobra ang Pangalan')
+    .required('Firstname is Required'),
+  lastname: Yup.string().max(100, 'Sobra ang Apelyido').nullable(),
+  email: Yup.string().email('Invalid Email').required('Email is Required'),
+  birthDate: Yup.date()
+    .max(new Date(), 'Must be lesser than today')
+    .required('Birth Date is Required'),
+  phone: Yup.string().required('Phone is Required'),
+});
+
 export interface ContactViewModel {
   id: number;
   firstname: string;
@@ -7,10 +21,11 @@ export interface ContactViewModel {
   birthDate?: Date;
   email: string;
   phone?: string;
+  organizationId?: number;
 }
 
-export interface ContactTableViewModel {
-  contacts: ContactViewModel[];
+export interface ContactTableViewModel extends TableViewModel {
+  data: ContactViewModel[];
 }
 
 export const contactDefaultValue: ContactViewModel = {
@@ -20,16 +35,13 @@ export const contactDefaultValue: ContactViewModel = {
   email: '',
   birthDate: undefined,
   phone: '',
+  organizationId: 0,
 };
 
-export const ContactValidation = Yup.object().shape({
-  firstname: Yup.string()
-    .max(20, 'Sobra ang Pangalan')
-    .required('Firstname is Required'),
-  lastname: Yup.string().max(21, 'Sobra ang Apelyido').nullable(),
-  email: Yup.string().email('Invalid Email').required('Email is Required'),
-  birthDate: Yup.date()
-    .max(new Date(), 'Must be lesser than today')
-    .required('Birth Date is Required'),
-  phone: Yup.string().required('Phone is Required'),
-});
+export const contactTableDefaultValue: ContactTableViewModel = {
+  data: [],
+  page: 1,
+  pageSize: 10,
+  total: 0,
+  totalPages: 0,
+};

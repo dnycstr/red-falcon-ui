@@ -1,23 +1,23 @@
 import { api } from '@config/apiEndpoints';
-import { ContactViewModel } from '@models/Contact';
+import { OrganizationViewModel } from '@models/Organization';
 import { getDataUrl } from '@utils/dataUrl';
 
-export const ContactServices = {
-  create: async function (contact: ContactViewModel) {
-    const createUrl = `${api.BASE_URL}${api.CONTACTS_ENDPOINT}`;
+export const OrganizationServices = {
+  create: async function (organization: OrganizationViewModel) {
+    const createUrl = `${api.BASE_URL}${api.ORGANIZATIONS_ENDPOINT}`;
     const createOptions = {
       method: 'POST',
       headers: new Headers({
         Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
       }),
-      body: JSON.stringify(contact),
+      body: JSON.stringify(organization),
     };
 
     return fetch(createUrl, createOptions);
   },
   delete: async function (id: number) {
-    const deleteURL = `${api.BASE_URL}${api.CONTACTS_ENDPOINT}/${id}`;
+    const deleteURL = `${api.BASE_URL}${api.ORGANIZATIONS_ENDPOINT}/${id}`;
     const deleteOptions = {
       method: 'DELETE',
       headers: new Headers({
@@ -29,7 +29,7 @@ export const ContactServices = {
     return fetch(deleteURL, deleteOptions);
   },
   getById: async function (id: number) {
-    const dataUrl = `${api.BASE_URL}${api.CONTACTS_ENDPOINT}/${id}`;
+    const dataUrl = `${api.BASE_URL}${api.ORGANIZATIONS_ENDPOINT}/${id}`;
     const dataOptions = {
       method: 'GET',
       headers: new Headers({
@@ -43,7 +43,7 @@ export const ContactServices = {
   getList: async function (page?: number, pageSize?: number, search?: string) {
     const dataUrl = getDataUrl(
       api.BASE_URL,
-      api.CONTACTS_ENDPOINT,
+      api.ORGANIZATIONS_ENDPOINT,
       page,
       pageSize,
       search
@@ -58,15 +58,15 @@ export const ContactServices = {
     };
     return fetch(dataUrl, dataOptions);
   },
-  update: async function (id: number, contact: ContactViewModel) {
-    const updateUrl = `${api.BASE_URL}${api.CONTACTS_ENDPOINT}/${id}`;
+  update: async function (id: number, organization: OrganizationViewModel) {
+    const updateUrl = `${api.BASE_URL}${api.ORGANIZATIONS_ENDPOINT}/${id}`;
     const updateOptions = {
       method: 'PUT',
       headers: new Headers({
         Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
       }),
-      body: JSON.stringify(contact),
+      body: JSON.stringify(organization),
     };
 
     return fetch(updateUrl, updateOptions);

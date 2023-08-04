@@ -4,13 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { DateInput } from '@components/Form/DateInput';
 import { Input } from '@components/Form/Input';
+import { Select } from '@components/Form/Select';
 import { routes } from '@config/routes';
+import { SelectOptions } from '@models/common/SelectOptions';
 import {
   ContactValidation,
   ContactViewModel,
   contactDefaultValue,
 } from '@models/Contact';
+import { OrganizationTableViewModel } from '@models/Organization';
 import { ContactServices } from '@services/Contact';
+import { OrganizationServices } from '@services/Organization';
+
+const initialOrganizations: SelectOptions[] = [];
 
 export const ContactEdit: React.FC = () => {
   const navigate = useNavigate();
@@ -18,17 +24,46 @@ export const ContactEdit: React.FC = () => {
   const { id } = useParams();
   const [contactData, setContactData] =
     useState<ContactViewModel>(contactDefaultValue);
+  const [isContactLoading, setIsContactLoading] = useState(true);
+  const [organizations, setOrganizations] = useState(initialOrganizations);
+  const [isOrganizationsLoading, setIsOrganizationsLoading] = useState(true);
 
   useEffect(() => {
     loadContactData();
+    loadOrganizations();
   }, [id]);
+
+  useEffect(() => {
+    if (!isOrganizationsLoading && !isContactLoading) {
+      setIsLoading(false);
+    }
+  }, [isContactLoading, isOrganizationsLoading]);
 
   const loadContactData = () => {
     ContactServices.getById(Number(id))
       .then((response) => response.json() as Promise<ContactViewModel>)
       .then((data) => {
         setContactData(data);
-        setIsLoading(false);
+        setIsContactLoading(false);
+      });
+  };
+
+  const loadOrganizations = () => {
+    OrganizationServices.getList(1, 1000)
+      .then(
+        (response) => response.json() as Promise<OrganizationTableViewModel>
+      )
+      .then((result) => {
+        const organizationSelection = [{ value: '0', text: '' }].concat(
+          result.data.map((row) => ({
+            value: row.id.toString(),
+            text: row.name,
+          }))
+        );
+
+        setOrganizations(organizationSelection);
+
+        setIsOrganizationsLoading(false);
       });
   };
 
@@ -78,6 +113,12 @@ export const ContactEdit: React.FC = () => {
                     <Input name="email" label="Email" />
                     <DateInput name="birthDate" label="Birth Date" />
                     <Input name="phone" label="Phone Number" />
+                    <Select
+                      label="Organization"
+                      name="organizationId"
+                      selection={organizations}
+                      value="0"
+                    />
                     <button
                       type="button"
                       className="border mt-4 p-2 rounded-md bg-gray-400 hover:bg-gray-700 text-white"
