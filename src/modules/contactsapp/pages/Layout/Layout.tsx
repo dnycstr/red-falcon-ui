@@ -17,7 +17,7 @@ export const Layout: React.FC<IProps> = ({ children }) => {
         }}
       >
         <h1 className="text-4xl text-center text-yellow-100">
-          Contact App v0.2.6
+          Contact App v0.2.7
         </h1>
       </div>
       <div className="bg-slate-200 mx-auto">{children}</div>
