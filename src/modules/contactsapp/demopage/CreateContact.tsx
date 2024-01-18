@@ -1,47 +1,108 @@
 import { useState } from 'react';
 
+import { CustomInput } from './CustomInput';
+
 interface ContactModel {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
   email: string;
 }
 
+const defaultContact: ContactModel = {
+  firstname: '',
+  lastname: '',
+  phone: '',
+  email: '',
+};
+
+// Parent Component
 export const CreateContact: React.FC = () => {
-  const [contact, setContact] = useState<ContactModel>();
+  const [contact, setContact] = useState<ContactModel>(defaultContact);
+
+  // console.log(`Contact Firstname: ${contact?.firstName}`);
+  // console.log(`Contact Lastname: ${contact?.lastName}`);
+  // console.log(`Contact Email: ${contact?.email}`);
+  // console.log(`Contact Phone: ${contact?.phoneNumber}`);
 
   return (
     <div className="w-80">
       <h1 className="p-4">Create Contact Form</h1>
-      <CustomInput label="First Name" />
+      <CustomInput
+        label="First Name"
+        onChangeHandler={(value) => {
+          // Immutable way of updating the state
+          const updatedContact = {
+            ...contact, // Spread operator
+            firstname: value,
+          };
 
-      <CustomInput label="Last Name" />
+          setContact(updatedContact);
+        }}
+      />
 
-      <CustomInput label="Phone" />
+      <CustomInput
+        label="Last Name"
+        onChangeHandler={(value) => {
+          // Immutable way of updating the state
+          const updatedContact = {
+            ...contact, // Spread operator
+            lastname: value,
+          };
 
-      <CustomInput label="Email" />
+          setContact(updatedContact);
+        }}
+      />
+
+      <CustomInput
+        label="Phone"
+        onChangeHandler={(value) => {
+          // Immutable way of updating the state
+          const updatedContact = {
+            ...contact, // Spread operator
+            phone: value,
+          };
+
+          setContact(updatedContact);
+        }}
+      />
+
+      <CustomInput
+        label="Email"
+        onChangeHandler={(value) => {
+          // Immutable way of updating the state
+          const updatedContact = {
+            ...contact, // Spread operator
+            email: value,
+          };
+
+          setContact(updatedContact);
+        }}
+      />
 
       <div className="flex flex-row justify-end space-x-2">
         <button className="bg-gray-500 hover:bg-gray-400 p-2 rounded-lg text-white hover:text-gray-700">
           Cancel
         </button>
-        <button className="bg-blue-500 hover:bg-blue-400 p-2 rounded-lg text-white hover:text-blue-700">
+        <button
+          className="bg-blue-500 hover:bg-blue-400 p-2 rounded-lg text-white hover:text-blue-700"
+          onClick={() => {
+            console.log('Saving Contact');
+            console.log(contact);
+
+            // Fetch API
+            fetch('https://localhost:7034/api/contacts', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(contact),
+            });
+          }}
+        >
           Save
         </button>
       </div>
-    </div>
-  );
-};
-
-interface CustomInputProps {
-  label: string;
-}
-
-const CustomInput: React.FC<CustomInputProps> = ({ label }) => {
-  return (
-    <div className="flex flex-col p-2">
-      <label> {label}</label>
-      <input className="w-80" type="text" />
     </div>
   );
 };

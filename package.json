@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "description": "",
   "scripts": {
-    "dev": "npm run lint && webpack serve --config webpack/webpack.config.js --env env=dev --open",
+    "dev": "webpack serve --config webpack/webpack.config.js --env env=dev --open",
     "build-dev": "webpack --config webpack/webpack.config.js --env env=dev",
     "build": "npm run lint && webpack --config webpack/webpack.config.js --env env=prod",
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
