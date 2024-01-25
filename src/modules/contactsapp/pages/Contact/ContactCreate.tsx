@@ -49,7 +49,7 @@ export const ContactCreate: React.FC = () => {
   ) => {
     ContactServices.create(values).then((response) => {
       if (response.status == 201) {
-        alert('Successfully Added');
+        alert('Successfully Added123');
         action.resetForm();
         navigate(`${routes.CONTACTS}`);
       }
@@ -67,7 +67,7 @@ export const ContactCreate: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="p-10">Is Loading....</div>;
+    return <div className="p-10">Is Loading....Shravan</div>;
   } else {
     return (
       <>

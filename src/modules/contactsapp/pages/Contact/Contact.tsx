@@ -6,7 +6,6 @@ export const Contact = () => {
   return (
     <>
       <PageHeading>Contact Page</PageHeading>
-
       <PageContent>
         <Outlet />
       </PageContent>

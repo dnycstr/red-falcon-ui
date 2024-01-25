@@ -1,18 +1,26 @@
+/* eslint-disable prettier/prettier */
 import { useField, FieldHookConfig } from 'formik';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+//We import useField,useState, DatePicker which are functional react components
 
 type Props = {
   label?: string;
 } & FieldHookConfig<string>;
+//The props of the components to be used after this should include label property which is optional as suggested by '?'
+//The props should also include all the properties in FieldHookConfig<string>
 
+
+//The DateInput component below is defined to handle date input within the form
 export const DateInput: React.FC<Props> = ({ label, ...props }) => {
-  const [field, meta, helpers] = useField(props);
+    const [field, meta, helpers] = useField(props);
+//destructuring the proprs arguments into the 3 variables
 
   const [dateInputValue, setDateInputValue] = useState(
     field.value ? new Date(field.value) : null
-  );
+    );
+//If Data field value is truthy it sets a new date or it sets the date as null
 
   return (
     <div className="w-full">
@@ -28,7 +36,8 @@ export const DateInput: React.FC<Props> = ({ label, ...props }) => {
                     date.getTime() - date.getTimezoneOffset() * 60000
                   ).toISOString()
                 : ''
-            );
+              );
+            //This is to off set the timezone difference
           }}
           className={
             !!meta.error && dateInputValue

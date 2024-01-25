@@ -1,5 +1,5 @@
 export const api = {
-  BASE_URL: 'https://zirkels-redfalcon-app.dscodelab.com', // window.location.origin,
+  BASE_URL: 'https://localhost:8080', // window.location.origin,
   CONTACTS_ENDPOINT: '/api/contacts',
   ORGANIZATIONS_ENDPOINT: '/api/organizations',
 };
