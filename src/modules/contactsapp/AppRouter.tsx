@@ -9,6 +9,7 @@ import {
   ContactList,
 } from './pages/Contact';
 import { Home } from './pages/Home';
+import { Tax, TaxCalculation } from './pages/Tax';
 
 import { routes } from '@config/routes';
 
@@ -27,6 +28,11 @@ export const AppRouter = createHashRouter([
           { path: `:id`, element: <ContactDetails /> },
           { path: `:id/edit`, element: <ContactEdit /> },
         ],
+      },
+      {
+        path: `${routes.TAXES}`,
+        element: <Tax />,
+        children: [{ index: true, element: <TaxCalculation /> }],
       },
     ],
   },
