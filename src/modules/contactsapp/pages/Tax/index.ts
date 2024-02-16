@@ -1,2 +1,2 @@
 export { Tax } from './Tax';
-export { TaxCalculation } from './CalculateTax';
+export { TaxCalculation } from './TaxCalculation';

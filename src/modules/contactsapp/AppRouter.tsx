@@ -1,3 +1,5 @@
+/* eslint-disable import/order */
+/* eslint-disable prettier/prettier */
 import { createHashRouter } from 'react-router-dom';
 
 import App from './App';
@@ -12,6 +14,7 @@ import { Home } from './pages/Home';
 import { Tax, TaxCalculation } from './pages/Tax';
 
 import { routes } from '@config/routes';
+import { LoginPage, UserLogin } from './pages/Login';
 
 export const AppRouter = createHashRouter([
   {
@@ -34,6 +37,13 @@ export const AppRouter = createHashRouter([
         element: <Tax />,
         children: [{ index: true, element: <TaxCalculation /> }],
       },
+        {
+            path: `${routes.LOGIN}`,
+            element: <LoginPage />,
+            children: [
+                {index: true, element: <UserLogin />}
+            ],
+        },
     ],
   },
 ]);

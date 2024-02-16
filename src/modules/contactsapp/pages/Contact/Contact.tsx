@@ -5,7 +5,8 @@ import { PageContent, PageHeading } from '@components/Page/Page';
 export const Contact = () => {
   return (
     <>
-      <PageHeading>Contact Page</PageHeading>
+    <PageHeading>Contact Page</PageHeading>
+
 
       <PageContent>
         <Outlet />
