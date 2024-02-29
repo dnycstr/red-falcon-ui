@@ -18,6 +18,7 @@ import { LoginPage, SignUp, UserLogin } from './pages/Login';
 import { Customer } from './pages/Customer/Customer';
 import { CustomerCreate } from './pages/Customer/CustomerCreate';
 import { CustomerList } from './pages/Customer/CustomerList';
+import { ContextDemo } from './pages/ContextDemo/Context';
 
 export const AppRouter = createHashRouter([
   {
@@ -35,33 +36,31 @@ export const AppRouter = createHashRouter([
           { path: `:id/edit`, element: <ContactEdit /> },
         ],
       },
+      { path: 'context-demo', element: <ContextDemo /> },
       {
         path: `${routes.TAXES}`,
         element: <Tax />,
         children: [{ index: true, element: <TaxCalculation /> }],
       },
-        {
-            path: `${routes.LOGIN}`,
-            element: <LoginPage />,
-            children: [
-                { index: true, element: <UserLogin /> },
-            ],
-        },
+      {
+        path: `${routes.LOGIN}`,
+        element: <LoginPage />,
+        children: [{ index: true, element: <UserLogin /> }],
+      },
 
-        {
-            path: `signup`,
-            element: <SignUp />,
-       
-        },
+      {
+        path: `signup`,
+        element: <SignUp />,
+      },
 
-        {
-           path: `customers`,
-           element: <Customer />,
-            children: [
-                { index: true, element: <CustomerList/>},
-                { path: 'create', element: <CustomerCreate /> }
-           ],              
-        }
+      {
+        path: `customers`,
+        element: <Customer />,
+        children: [
+          { index: true, element: <CustomerList /> },
+          { path: 'create', element: <CustomerCreate /> },
+        ],
+      },
     ],
   },
 ]);
