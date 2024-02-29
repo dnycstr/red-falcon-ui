@@ -14,7 +14,10 @@ import { Home } from './pages/Home';
 import { Tax, TaxCalculation } from './pages/Tax';
 
 import { routes } from '@config/routes';
-import { LoginPage, UserLogin } from './pages/Login';
+import { LoginPage, SignUp, UserLogin } from './pages/Login';
+import { Customer } from './pages/Customer/Customer';
+import { CustomerCreate } from './pages/Customer/CustomerCreate';
+import { CustomerList } from './pages/Customer/CustomerList';
 
 export const AppRouter = createHashRouter([
   {
@@ -41,9 +44,24 @@ export const AppRouter = createHashRouter([
             path: `${routes.LOGIN}`,
             element: <LoginPage />,
             children: [
-                {index: true, element: <UserLogin />}
+                { index: true, element: <UserLogin /> },
             ],
         },
+
+        {
+            path: `signup`,
+            element: <SignUp />,
+       
+        },
+
+        {
+           path: `customers`,
+           element: <Customer />,
+            children: [
+                { index: true, element: <CustomerList/>},
+                { path: 'create', element: <CustomerCreate /> }
+           ],              
+        }
     ],
   },
 ]);
